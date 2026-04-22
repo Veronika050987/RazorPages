@@ -29,6 +29,30 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Student.EnrollmentDate)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Student.Enrollments)
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Course title</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(RazorPages.Models.Enrollment enrollment in Model.Student.Enrollments)
+                    {
+                        <tr>
+                            <td>@enrollment.Course.Title</td>
+                            <td>@enrollment.Grade</td>
+                          @*   <td>@Html.DisplayFor(item => enrollment.Course.Title)</td>
+                            <td>@Html.DisplayFor(item => enrollment.Grade)</td> *@
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </dd>
     </dl>
 </div>
 <div>
