@@ -5,23 +5,26 @@
     ViewData["Title"] = "Students";
 }
 
-<h1>Students</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-
-<form asp-page="./Index" method="get">
-    <div class="form-actions no-color">
-        <p>
-            Find by name:
-            <input type="text" name="SearchString" value="@Model.CurrentFilter"/>
-            @* <input type="text" name="SearchString" value="@Model.CurrentFilter"/> *@
-            <input type="submit" value="Search" class="btn btn-primary" /> | 
-            <a asp-page="./Index">Все студенты</a>
-        </p>
+<div class="header">
+    <div style="display:flex;">
+        <h2>Students</h2>
+        <div style="margin: 0px 20px;">
+            <a asp-page="Create" class="btn btn-primary">Create New</a>
+        </div>
     </div>
-</form>
+
+    <form asp-page="./Index" method="get">
+        <div class="form-actions no-color">
+            <p>
+                Find by name:
+                <input type="text" name="searchString" value="@Model.CurrentFilter" />
+                <input type="submit" value="Search" class="btn btn-primary" /> |
+                <a asp-page="./Index">Back to full List</a>
+            </p>
+        </div>
+    </form>
+</div>
+
 
 <table class="table">
     <thead>
@@ -67,6 +70,7 @@
    asp-route-sortOrder="@Model.CurrentSort"
    asp-route-pageIndex="@(Model.Students.PageIndex - 1)"
    asp-route-currentFilter="@Model.CurrentFilter"
+   asp-route-pageSize="@Model.PageSize"
    class="btn btn-primary @prevDisabled"
 >
 Prev
@@ -75,7 +79,16 @@ Prev
    asp-route-sortOrder="@Model.CurrentSort"
    asp-route-pageIndex="@(Model.Students.PageIndex + 1)"
    asp-route-currentFilter="@Model.CurrentFilter"
+   asp-route-pageSize="@Model.PageSize"
    class="btn btn-primary @nextDisabled"
 >
 Next
 </a>
+<form asp-page="./Index" method="get">
+    <select asp-for="PageSize" onchange="this.form.submit()">
+        <option value="3">3</option>
+        <option value="5">5</option>
+        <option value="8">8</option>
+        <option value="10">10</option>
+    </select>
+</form>
