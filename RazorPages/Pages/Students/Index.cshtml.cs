@@ -27,11 +27,19 @@ namespace RazorPages.Pages.Students
 
         public IList<Student> Students { get;set; } = default!;
 
-        public async Task OnGetAsync(string sortOrder)
+        public async Task OnGetAsync(string sortOrder, string searchString)
         {
             NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             DateSort = sortOrder == "Date" ? "date_desc" : "Date";
+            CurrentFilter = searchString;
+            
             IQueryable<Student> students = from student in _context.Students select student;
+            
+            if(!String.IsNullOrEmpty(CurrentFilter))
+            {
+                students = students.Where(s => s.LastName.Contains(CurrentFilter) || s.FirstName.Contains(CurrentFilter));
+            }
+
             switch (sortOrder)
             {
                 case "name_desc":   students = students.OrderByDescending(s => s.LastName);         break;
