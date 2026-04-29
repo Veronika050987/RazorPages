@@ -14,6 +14,6 @@ namespace Academy.Data
         {
         }
 
-        public DbSet<Academy.Models.Student> Student { get; set; } = default!;
+        public DbSet<Academy.Models.Student> Students { get; set; } = default!;
     }
 }
