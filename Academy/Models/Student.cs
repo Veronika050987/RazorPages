@@ -25,9 +25,15 @@ namespace Academy.Models
 		public string? middle_name { get; set; }
 
 		[Required(ErrorMessage = "Только 🧟 не имеют дату рождения")]
-		[DataType(DataType.Date)]
 		[Display(Name = "Дата рождения")]
+		[DataType(DataType.Date)]
 		public DateOnly birth_date { get; set; }
+
+		[Display(Name = "Студент")]
+		public string FullName
+		{
+			get => $"{last_name} {first_name}";
+		}
 		//public string? email { get; set; }
 		//public string? phone { get; set; }
 		//public byte[]? photo { get; set; }

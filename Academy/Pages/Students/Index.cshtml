@@ -14,6 +14,13 @@
         p .create-new-link:hover {
             color: darkorchid;
         }
+    table .create-new-link {
+        color: purple;
+    }
+
+        table .create-new-link:hover {
+            color: darkorchid;
+        }
 
     h1 {
         text-align: center;
@@ -21,6 +28,9 @@
         color: #4B0082;
     }
 
+    h2 {
+        color: #7B68EE;
+    }
     p {
         text-align: center;
     }
@@ -28,28 +38,55 @@
     th {
         color: #4169E1;
     }
+
+    .form-group-margin-top {
+        margin-top: 20px;
+    }
 </style>
 
 
-<h1>Index</h1>
+<h1>👦🏻Index👧🏻</h1>
 
-<p>
-    <a asp-page="Create" class="create-new-link">Create new student</a>
-</p>
-<table class="table">
+<div class="header">
+    <div style="display:flex;">
+        <h2>Students</h2>
+        <div style="margin: 0px 20px;">
+            <a asp-page="Create" class="btn btn-primary">Create New</a>
+        </div>
+    </div>
+
+    <form asp-page="./Index" method="get">
+        <div class="form-actions no-color">
+            <p>
+                Find by name🔎:
+                <input type="text" name="searchString" value="@Model.CurrentFilter" />
+                <input type="submit" value="Search" class="btn btn-primary" /> |
+                <a asp-page="./Index" class="create-new-link">Back to full List</a>
+            </p>
+        </div>
+    </form>
+</div>
+
+<table class="table create-new-link">
     <thead>
         <tr>
             <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter">@Html.DisplayNameFor(model => model.Students[0].FullName)</a>
+            </th>
+           @*  <th>
                 @Html.DisplayNameFor(model => model.Student[0].last_name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Student[0].first_name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Student[0].middle_name)
-            </th>
-            <th>
+                @Html.DisplayNameFor(model => model.Student[0].middle_name) *@
+            @* </th> *@
+           @*  <th>
                 @Html.DisplayNameFor(model => model.Student[0].birth_date)
+            </th> *@
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort" asp-route-currentFilter="@Model.CurrentFilter">@Html.DisplayNameFor(model => model.Students[0].birth_date)</a>
             </th>
         @*     <th>
                 @Html.DisplayNameFor(model => model.Student[0].email)
@@ -64,9 +101,12 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Student) {
+@foreach (var item in Model.Students) {
         <tr>
-            <td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+            @* <td>
                 @Html.DisplayFor(modelItem => item.last_name)
             </td>
             <td>
@@ -74,7 +114,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.middle_name)
-            </td>
+            </td> *@
             <td>
                 @Html.DisplayFor(modelItem => item.birth_date)
             </td>
@@ -88,11 +128,39 @@
                 @Html.DisplayFor(modelItem => item.photo)
             </td> *@
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.stud_id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.stud_id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.stud_id">Delete</a>
+                <a asp-page="./Edit" class="create-new-link" asp-route-id="@item.stud_id">Edit</a> |
+                    <a asp-page="./Details" class="create-new-link" asp-route-id="@item.stud_id">Details</a> |
+                    <a asp-page="./Delete" class="create-new-link" asp-route-id="@item.stud_id">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+@{
+    string prevDisabled = Model.Students.HasPreviousPage ? "" : "disabled";
+    string nextDisabled = Model.Students.HasNextPage ? "" : "disabled";
+}
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Students.PageIndex - 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   asp-route-pageSize="@Model.PageSize"
+   class="btn btn-primary @prevDisabled">
+    Prev
+</a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Students.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   asp-route-pageSize="@Model.PageSize"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>
+<form class="form-group-margin-top" asp-page="./Index" method="get">
+    <select asp-for="PageSize" onchange="this.form.submit()">
+        <option value="3">3</option>
+        <option value="5">5</option>
+        <option value="8">8</option>
+        <option value="10">10</option>
+    </select>
+</form>
