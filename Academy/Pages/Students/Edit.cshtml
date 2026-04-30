@@ -4,7 +4,30 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<style>
 
+    div .create-new-link {
+        color: purple;
+    }
+
+        div .create-new-link:hover {
+            color: darkorchid;
+        }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #4B0082;
+    }
+
+    h4 {
+        color: #7B68EE;
+    }
+
+    div {
+        color: #4682B4;
+    }
+</style>
 <h1>Edit</h1>
 
 <h4>Student</h4>
@@ -60,7 +83,7 @@
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index" class="create-new-link">Back to List</a>
 </div>
 
 @section Scripts {

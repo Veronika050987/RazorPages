@@ -4,7 +4,34 @@
 @{
     ViewData["Title"] = "Delete";
 }
+<style>
 
+    form .create-new-link {
+        color: purple;
+    }
+
+        form .create-new-link:hover {
+            color: darkorchid;
+        }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #4B0082;
+    }
+    h3 {
+        text-align: center;
+        color: #A52A2A;
+    }
+
+    h4 {
+        color: #7B68EE;
+    }
+
+    dt {
+        color: #4682B4;
+    }
+</style>
 <h1>Delete</h1>
 
 <h3>Are you sure you want to delete this?</h3>
@@ -59,6 +86,6 @@
     <form method="post">
         <input type="hidden" asp-for="Student.stud_id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        <a asp-page="./Index" class="create-new-link">Back to List</a>
     </form>
 </div>

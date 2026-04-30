@@ -4,7 +4,29 @@
 @{
     ViewData["Title"] = "Details";
 }
+<style>
 
+    div .create-new-link {
+        color: purple;
+    }
+
+        div .create-new-link:hover {
+            color: darkorchid;
+        }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #4B0082;
+    }
+    h4 {
+        color: #7B68EE;
+    }
+
+    dt {
+        color: #4682B4;
+    }
+</style>
 <h1>Details</h1>
 
 <div>
@@ -56,6 +78,6 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Student.stud_id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Edit" asp-route-id="@Model.Student.stud_id" class="create-new-link">Edit</a> |
+    <a asp-page="./Index" class="create-new-link">Back to List</a>
 </div>
