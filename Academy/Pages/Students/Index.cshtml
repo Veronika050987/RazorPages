@@ -5,10 +5,32 @@
     ViewData["Title"] = "Index";
 }
 
+<style>
+
+    p .create-new-link {
+        color: purple;
+    }
+
+        p .create-new-link:hover {
+            color: darkorchid;
+        }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #00CED1;
+    }
+
+    p {
+        text-align: center;
+    }
+</style>
+
+
 <h1>Index</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create" class="create-new-link">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -25,14 +47,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.Student[0].birth_date)
             </th>
-            <th>
+        @*     <th>
                 @Html.DisplayNameFor(model => model.Student[0].email)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Student[0].phone)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Student[0].photo)
+                @Html.DisplayNameFor(model => model.Student[0].photo) *@
             </th>
             <th></th>
         </tr>
@@ -52,12 +74,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.birth_date)
             </td>
-            <td>
+       @*      <td>
                 @Html.DisplayFor(modelItem => item.email)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.phone)
-            </td>
+            </td> *@
 @*             <td>
                 @Html.DisplayFor(modelItem => item.photo)
             </td> *@
