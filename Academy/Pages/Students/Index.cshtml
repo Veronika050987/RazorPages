@@ -45,7 +45,7 @@
 
     .custom-purple-button.btn-primary {
         background-color: #8A2BE2;
-        border-color: purple;
+        border-color: #4B0082;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
                     0 2px 4px rgba(0, 0, 0, 0.08);
         color: white;
@@ -72,7 +72,7 @@
     <div style="display:flex;">
         <h2>Students</h2>
         <div style="margin: 0px 20px;">
-            <a asp-page="Create" class="btn btn-primary">Create New</a>
+            <a asp-page="Create" class="btn btn-primary custom-purple-button">Create new student</a>
         </div>
     </div>
 
@@ -81,7 +81,7 @@
             <p>
                 Find by name🔎:
                 <input type="text" name="searchString" value="@Model.CurrentFilter" />
-                <input type="submit" value="Search" class="btn btn-primary" /> |
+                <input type="submit" value="Search" class="btn btn-primary custom-purple-button" /> |
                 <a asp-page="./Index" class="create-new-link">Back to full List</a>
             </p>
         </div>
