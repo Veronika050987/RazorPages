@@ -39,9 +39,23 @@ namespace Academy.Pages.Students
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+		[BindProperty]
+		public string? Photo64Data
+		{
+			get { if (Student?.photo != null) return Convert.ToBase64String(Student.photo); else return null; }
+			set
+			{
+				if (value != null && value.Contains(','))
+					Student.photo = Convert.FromBase64String(value.Split(',')[1]);
+				else if (value != null)
+					Student.photo = Convert.FromBase64String(value);
+			}
+		}
+
+
+		// To protect from overposting attacks, enable the specific properties you want to bind to.
+		// For more information, see https://aka.ms/RazorPagesCRUD.
+		public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {

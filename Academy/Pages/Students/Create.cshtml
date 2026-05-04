@@ -97,6 +97,18 @@
                 <input asp-for="Student.photo" class="form-control" />
                 <span asp-validation-for="Student.photo" class="text-danger"></span>
             </div> *@
+            <div class="form-group">
+                <label asp-for="Student.photo" class="control-label"></label>
+                <div>
+                    <img id="imagePreview"
+                         style="max-width:200px;height:auto;border:1px solid #dee2e6; border-radius:4px;"
+                         src="data:image; base64,@Model.Photo64Data"
+                         alt="Photo" />
+                </div>
+                <input type="file" id="fileInput" accept="image/*" class="form-control" />
+                <input type="hidden" id="hiddenStudentPhoto" asp-for="Photo64Data" />
+                <span asp-validation-for="Student.photo" class="text-danger"></span>
+            </div>
             <div class="form-group form-group-margin-top">
                 <input type="submit" value="Create" class="btn btn-primary custom-purple-button" />
             </div>
@@ -110,4 +122,22 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const base64String = e.target.result;
+
+                    document.getElementById('hiddenStudentPhoto').value = base64String;
+                    document.getElementById('imagePreview').src = base64String;
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 }

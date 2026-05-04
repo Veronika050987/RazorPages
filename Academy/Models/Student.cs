@@ -36,7 +36,7 @@ namespace Academy.Models
 		}
 		//public string? email { get; set; }
 		//public string? phone { get; set; }
-		//public byte[]? photo { get; set; }
+		public byte[]? photo { get; set; }
 		//[Required, ForeignKey(nameof(Group))]
 		//public int group { get; set; }
 		//Navigation properties
