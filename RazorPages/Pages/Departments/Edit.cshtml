@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:int}"
 @model RazorPages.Pages.Departments.EditModel
 
 @{
@@ -14,8 +14,13 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Department.DepartmentID" />
+            <input type="hidden" asp-for="Department.ConcurrencyToken"/>
             <div class="form-group">
-<span class="text-danger">*</span>
+                <label>Versions</label>
+                @Utility.GetLastChars(Model.Department.ConcurrencyToken)
+            </div>
+            <div class="form-group">
+            <span class="text-danger">*</span>
                 <label asp-for="Department.Name" class="control-label"></label>
                 <input asp-for="Department.Name" class="form-control" aria-required="true"/>
                 <span asp-validation-for="Department.Name" class="text-danger"></span>

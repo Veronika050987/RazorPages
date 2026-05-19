@@ -21,7 +21,7 @@ namespace RazorPages.Pages.Departments
 
         [BindProperty]
         public Department Department { get; set; } = default!;
-
+        
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
