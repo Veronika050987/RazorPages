@@ -21,8 +21,8 @@ namespace RazorPages.Pages.Departments
 
         [BindProperty]
         public Department Department { get; set; } = default!;
-        
-        public async Task<IActionResult> OnGetAsync(int? id)
+		public string ConcurrencyErrorMessage { get; set; }
+		/*public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
@@ -40,9 +40,38 @@ namespace RazorPages.Pages.Departments
                 Department = department;
             }
             return Page();
-        }
+        }*/
+		public async Task<IActionResult> OnGetAsync(int id, bool? concurrencyError)
+		{
+			Department = await _context.Departments
+								.Include(d => d.Administrator)
+								.AsNoTracking()
+								.FirstOrDefaultAsync(d => d.DepartmentID == id);
+			if (Department == null) return NotFound();
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+			if (concurrencyError.GetValueOrDefault())
+				ConcurrencyErrorMessage = "Удавляемая запись была зменена другим пользовалетем.Удавление было прервано. Если Вы все-таки хотите удавить эту запись, удавите ее еще раз";
+			return Page();
+		}
+
+		public async Task<IActionResult> OnPostAsync(int id)
+		{
+			try
+			{
+				if (await _context.Departments.AnyAsync(d => d.DepartmentID == id))
+				{
+					_context.Departments.Remove(Department);
+					await _context.SaveChangesAsync();
+				}
+				return RedirectToPage("./Index");
+			}
+			catch (DbUpdateConcurrencyException ex)
+			{
+				return RedirectToPage("./Delete", new { concurrencyError = true, id = id });
+			}
+		}
+
+		/*public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
             {
@@ -58,6 +87,6 @@ namespace RazorPages.Pages.Departments
             }
 
             return RedirectToPage("./Index");
-        }
-    }
+        }*/
+	}
 }
